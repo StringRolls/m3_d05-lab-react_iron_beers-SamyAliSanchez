@@ -1,8 +1,8 @@
-import Header from "../components/Header";
 import axios from "axios";
-import ListItem from "../components/ListItem";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import Header from "../components/Header";
+import ListItem from "../components/ListItem";
 
 export default function BeersPage() {
   const [beers, setBeers] = useState([]);
@@ -11,16 +11,16 @@ export default function BeersPage() {
     axios
       .get("https://ih-beers-api2.herokuapp.com/beers")
       .then((response) => setBeers(response.data))
-      /* console.log("response.data", response.data) */
       .catch((error) => console.log(error));
   }, []);
-
+  
   return beers.length !== 0 ? (
     <div>
       <Header />
       {beers.map((beer) => (
-        <Link to={`/beers/${beers._id}`} className="listLink">
+        <Link to={`/beers/${beer._id}`} className="listLink">
           <ListItem beer={beer} />
+          <hr />
         </Link>
       ))}
     </div>
